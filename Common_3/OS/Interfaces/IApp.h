@@ -125,6 +125,8 @@ public:
 		bool	 mDefaultAutomatedTesting = true;
 		/// if benchmarking mode is enabled
 		bool	 mBenchmarking = false;
+		/// if api switch ui is enabled
+		bool	 mAPISwitchUI = false;
 		
 		/// if the window is positioned in the center of the screen
 		bool     mCentered = true;

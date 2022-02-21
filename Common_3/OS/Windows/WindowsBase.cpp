@@ -1311,7 +1311,10 @@ int WindowsMain(int argc, char** argv, IApp* app)
 		if (!pApp->Init())
 			return EXIT_FAILURE;
 
-		setupAPISwitchingUI(pSettings->mWidth, pSettings->mHeight);
+		if(pSettings->mAPISwitchUI)
+		{
+			setupAPISwitchingUI(pSettings->mWidth, pSettings->mHeight);
+		}
 		pSettings->mInitialized = true;
 
 		if (!pApp->Load())
@@ -1369,7 +1372,10 @@ int WindowsMain(int argc, char** argv, IApp* app)
 				if (!pApp->Init())
 					return EXIT_FAILURE;
 
-				setupAPISwitchingUI(pSettings->mWidth, pSettings->mHeight);
+				if(pSettings->mAPISwitchUI)
+				{
+					setupAPISwitchingUI(pSettings->mWidth, pSettings->mHeight);
+				}
 				pSettings->mInitialized = true;
 
 				if (!pApp->Load())
