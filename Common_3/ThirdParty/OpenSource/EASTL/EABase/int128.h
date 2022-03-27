@@ -44,16 +44,16 @@ struct EA_INT128_ALIGNAS int128_t_base
 {
 	// Constructors / destructors
 	int128_t_base() = default;
-	int128_t_base(uint32_t nPart0, uint32_t nPart1, uint32_t nPart2, uint32_t nPart3);
-	int128_t_base(uint64_t nPart0, uint64_t nPart1);
-	int128_t_base(uint8_t value);
-	int128_t_base(uint16_t value);
-	int128_t_base(uint32_t value);
-	int128_t_base(uint64_t value);
-	int128_t_base(const int128_t_base& value) = default;
+	EA_CONSTEXPR int128_t_base(uint32_t nPart0, uint32_t nPart1, uint32_t nPart2, uint32_t nPart3);
+	EA_CONSTEXPR int128_t_base(uint64_t nPart0, uint64_t nPart1);
+	EA_CONSTEXPR int128_t_base(uint8_t value);
+	EA_CONSTEXPR int128_t_base(uint16_t value);
+	EA_CONSTEXPR int128_t_base(uint32_t value);
+	EA_CONSTEXPR int128_t_base(uint64_t value);
+	EA_CONSTEXPR int128_t_base(const int128_t_base& value) = default;
 
 	// Assignment operator
-	int128_t_base& operator=(const int128_t_base& value) = default;
+	EA_CONSTEXPR int128_t_base& operator=(const int128_t_base& value) = default;
 
 	// Explicit operators to convert back to basic types
 	EA_CONSTEXPR explicit operator bool() const;
@@ -82,50 +82,50 @@ struct EA_INT128_ALIGNAS int128_t_base
 #endif
 
 	// Math operators
-	static void OperatorPlus (const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
-	static void OperatorMinus(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
-	static void OperatorMul  (const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
+	EA_CONSTEXPR static void OperatorPlus (const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
+	EA_CONSTEXPR static void OperatorMinus(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
+	EA_CONSTEXPR static void OperatorMul  (const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
 
 	// Shift operators
-	static void OperatorShiftRight(const int128_t_base& value, int nShift, int128_t_base& result);
-	static void OperatorShiftLeft (const int128_t_base& value, int nShift, int128_t_base& result);
+	EA_CONSTEXPR static void OperatorShiftRight(const int128_t_base& value, int nShift, int128_t_base& result);
+	EA_CONSTEXPR static void OperatorShiftLeft (const int128_t_base& value, int nShift, int128_t_base& result);
 
 	// Unary arithmetic/logic operators
-	bool operator!() const;
+	EA_CONSTEXPR bool operator!() const;
 
 	// Logical operators
-	static void OperatorXOR(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
-	static void OperatorOR (const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
-	static void OperatorAND(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
+	EA_CONSTEXPR static void OperatorXOR(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
+	EA_CONSTEXPR static void OperatorOR (const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
+	EA_CONSTEXPR static void OperatorAND(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result);
 
-	bool     IsZero() const;
-	void     SetZero();
-	void     TwosComplement();
-	void     InverseTwosComplement();
+	EA_CONSTEXPR bool     IsZero() const;
+	EA_CONSTEXPR void     SetZero();
+	EA_CONSTEXPR void     TwosComplement();
+	EA_CONSTEXPR void     InverseTwosComplement();
 
-	int      GetBit(int nIndex) const;
-	void     SetBit(int nIndex, int value);
-
-protected:
-	void DoubleToUint128(double value);
+	EA_CONSTEXPR int      GetBit(int nIndex) const;
+	EA_CONSTEXPR void     SetBit(int nIndex, int value);
 
 	EA_CONSTEXPR uint64_t Low() const
 	{
-	#ifdef EA_SYSTEM_BIG_ENDIAN
+#ifdef EA_SYSTEM_BIG_ENDIAN
 		return mPart0;
-	#else
+#else
 		return mPart1;
-	#endif
+#endif
 	}
 
 	EA_CONSTEXPR uint64_t High() const
 	{
-	#ifdef EA_SYSTEM_BIG_ENDIAN
+#ifdef EA_SYSTEM_BIG_ENDIAN
 		return mPart1;
-	#else
+#else
 		return mPart0;
-	#endif
+#endif
 	}
+
+protected:
+	EA_CONSTEXPR void DoubleToUint128(double value);
 
 protected:
 	#ifdef EA_SYSTEM_BIG_ENDIAN
@@ -151,54 +151,54 @@ struct int128_t : public int128_t_base
 	using int128_t_base::operator=;
 
 	// Unary arithmetic/logic operators
-	int128_t  operator-() const;
-	int128_t& operator++();
-	int128_t& operator--();
-	int128_t  operator++(int);
-	int128_t  operator--(int);
-	int128_t  operator~() const;
-	int128_t  operator+() const;
+	EA_CONSTEXPR int128_t  operator-() const;
+	EA_CONSTEXPR int128_t& operator++();
+	EA_CONSTEXPR int128_t& operator--();
+	EA_CONSTEXPR int128_t  operator++(int);
+	EA_CONSTEXPR int128_t  operator--(int);
+	EA_CONSTEXPR int128_t  operator~() const;
+	EA_CONSTEXPR int128_t  operator+() const;
 
 	// Math operators
-	int128_t  operator+ (const int128_t& other);
-	int128_t  operator- (const int128_t& other);
-	int128_t  operator* (const int128_t& other);
-	int128_t  operator/ (const int128_t& other);
-	int128_t  operator% (const int128_t& other);
-	int128_t& operator+=(const int128_t& other);
-	int128_t& operator-=(const int128_t& other);
-	int128_t& operator*=(const int128_t& other);
-	int128_t& operator/=(const int128_t& other);
-	int128_t& operator%=(const int128_t& other);
+	EA_CONSTEXPR int128_t  operator+ (const int128_t& other);
+	EA_CONSTEXPR int128_t  operator- (const int128_t& other);
+	EA_CONSTEXPR int128_t  operator* (const int128_t& other);
+	EA_CONSTEXPR int128_t  operator/ (const int128_t& other);
+	EA_CONSTEXPR int128_t  operator% (const int128_t& other);
+	EA_CONSTEXPR int128_t& operator+=(const int128_t& other);
+	EA_CONSTEXPR int128_t& operator-=(const int128_t& other);
+	EA_CONSTEXPR int128_t& operator*=(const int128_t& other);
+	EA_CONSTEXPR int128_t& operator/=(const int128_t& other);
+	EA_CONSTEXPR int128_t& operator%=(const int128_t& other);
 
 	// Shift operators
-	int128_t  operator>> (int nShift) const;
-	int128_t  operator<< (int nShift) const;
-	int128_t& operator>>=(int nShift);
-	int128_t& operator<<=(int nShift);
+	EA_CONSTEXPR int128_t  operator>> (int nShift) const;
+	EA_CONSTEXPR int128_t  operator<< (int nShift) const;
+	EA_CONSTEXPR int128_t& operator>>=(int nShift);
+	EA_CONSTEXPR int128_t& operator<<=(int nShift);
 
 	// Logical operators
-	int128_t  operator^ (const int128_t& other) const;
-	int128_t  operator| (const int128_t& other) const;
-	int128_t  operator& (const int128_t& other) const;
-	int128_t& operator^=(const int128_t& other);
-	int128_t& operator|=(const int128_t& other);
-	int128_t& operator&=(const int128_t& other);
+	EA_CONSTEXPR int128_t  operator^ (const int128_t& other) const;
+	EA_CONSTEXPR int128_t  operator| (const int128_t& other) const;
+	EA_CONSTEXPR int128_t  operator& (const int128_t& other) const;
+	EA_CONSTEXPR int128_t& operator^=(const int128_t& other);
+	EA_CONSTEXPR int128_t& operator|=(const int128_t& other);
+	EA_CONSTEXPR int128_t& operator&=(const int128_t& other);
 
 	// Equality operators
-	bool operator==(const int128_t& other) const;
-	bool operator!=(const int128_t& other) const;
-	bool operator> (const int128_t& other) const;
-	bool operator>=(const int128_t& other) const;
-	bool operator< (const int128_t& other) const;
-	bool operator<=(const int128_t& other) const;
+	EA_CONSTEXPR bool operator==(const int128_t& other) const;
+	EA_CONSTEXPR bool operator!=(const int128_t& other) const;
+	EA_CONSTEXPR bool operator> (const int128_t& other) const;
+	EA_CONSTEXPR bool operator>=(const int128_t& other) const;
+	EA_CONSTEXPR bool operator< (const int128_t& other) const;
+	EA_CONSTEXPR bool operator<=(const int128_t& other) const;
 
 protected:
-	int compare(const int128_t& other) const;
-	void Negate();
-	void Modulus(const int128_t& divisor, int128_t& quotient, int128_t& remainder) const;
-	bool IsNegative() const;    // Returns true for value <  0
-	bool IsPositive() const;    // Returns true for value >= 0
+	EA_CONSTEXPR int compare(const int128_t& other) const;
+	EA_CONSTEXPR void Negate();
+	EA_CONSTEXPR void Modulus(const int128_t& divisor, int128_t& quotient, int128_t& remainder) const;
+	EA_CONSTEXPR bool IsNegative() const;    // Returns true for value <  0
+	EA_CONSTEXPR bool IsPositive() const;    // Returns true for value >= 0
 };
 
 
@@ -216,54 +216,54 @@ struct uint128_t : public int128_t_base
 	using int128_t_base::operator=;
 
 	// Unary arithmetic/logic operators
-	uint128_t  operator-() const;
-	uint128_t& operator++();
-	uint128_t& operator--();
-	uint128_t  operator++(int);
-	uint128_t  operator--(int);
-	uint128_t  operator~() const;
-	uint128_t  operator+() const;
+	EA_CONSTEXPR uint128_t  operator-() const;
+	EA_CONSTEXPR uint128_t& operator++();
+	EA_CONSTEXPR uint128_t& operator--();
+	EA_CONSTEXPR uint128_t  operator++(int);
+	EA_CONSTEXPR uint128_t  operator--(int);
+	EA_CONSTEXPR uint128_t  operator~() const;
+	EA_CONSTEXPR uint128_t  operator+() const;
 
 	// Math operators
-	uint128_t  operator+ (const uint128_t& other);
-	uint128_t  operator- (const uint128_t& other);
-	uint128_t  operator* (const uint128_t& other);
-	uint128_t  operator/ (const uint128_t& other);
-	uint128_t  operator% (const uint128_t& other);
-	uint128_t& operator+=(const uint128_t& other);
-	uint128_t& operator-=(const uint128_t& other);
-	uint128_t& operator*=(const uint128_t& other);
-	uint128_t& operator/=(const uint128_t& other);
-	uint128_t& operator%=(const uint128_t& other);
+	EA_CONSTEXPR uint128_t  operator+ (const uint128_t& other);
+	EA_CONSTEXPR uint128_t  operator- (const uint128_t& other);
+	EA_CONSTEXPR uint128_t  operator* (const uint128_t& other);
+	EA_CONSTEXPR uint128_t  operator/ (const uint128_t& other);
+	EA_CONSTEXPR uint128_t  operator% (const uint128_t& other);
+	EA_CONSTEXPR uint128_t& operator+=(const uint128_t& other);
+	EA_CONSTEXPR uint128_t& operator-=(const uint128_t& other);
+	EA_CONSTEXPR uint128_t& operator*=(const uint128_t& other);
+	EA_CONSTEXPR uint128_t& operator/=(const uint128_t& other);
+	EA_CONSTEXPR uint128_t& operator%=(const uint128_t& other);
 
 	// Shift operators
-	uint128_t  operator>> (int nShift) const;
-	uint128_t  operator<< (int nShift) const;
-	uint128_t& operator>>=(int nShift);
-	uint128_t& operator<<=(int nShift);
+	EA_CONSTEXPR uint128_t  operator>> (int nShift) const;
+	EA_CONSTEXPR uint128_t  operator<< (int nShift) const;
+	EA_CONSTEXPR uint128_t& operator>>=(int nShift);
+	EA_CONSTEXPR uint128_t& operator<<=(int nShift);
 
 	// Logical operators
-	uint128_t  operator^ (const uint128_t& other) const;
-	uint128_t  operator| (const uint128_t& other) const;
-	uint128_t  operator& (const uint128_t& other) const;
-	uint128_t& operator^=(const uint128_t& other);
-	uint128_t& operator|=(const uint128_t& other);
-	uint128_t& operator&=(const uint128_t& other);
+	EA_CONSTEXPR uint128_t  operator^ (const uint128_t& other) const;
+	EA_CONSTEXPR uint128_t  operator| (const uint128_t& other) const;
+	EA_CONSTEXPR uint128_t  operator& (const uint128_t& other) const;
+	EA_CONSTEXPR uint128_t& operator^=(const uint128_t& other);
+	EA_CONSTEXPR uint128_t& operator|=(const uint128_t& other);
+	EA_CONSTEXPR uint128_t& operator&=(const uint128_t& other);
 
 	// Equality operators
-	bool operator==(const uint128_t& other) const;
-	bool operator!=(const uint128_t& other) const;
-	bool operator> (const uint128_t& other) const;
-	bool operator>=(const uint128_t& other) const;
-	bool operator< (const uint128_t& other) const;
-	bool operator<=(const uint128_t& other) const;
+	EA_CONSTEXPR bool operator==(const uint128_t& other) const;
+	EA_CONSTEXPR bool operator!=(const uint128_t& other) const;
+	EA_CONSTEXPR bool operator> (const uint128_t& other) const;
+	EA_CONSTEXPR bool operator>=(const uint128_t& other) const;
+	EA_CONSTEXPR bool operator< (const uint128_t& other) const;
+	EA_CONSTEXPR bool operator<=(const uint128_t& other) const;
 
 protected:
-	int  compare(const uint128_t& other) const;
-	void Negate();
-	void Modulus(const uint128_t& divisor, uint128_t& quotient, uint128_t& remainder) const;
-	bool IsNegative() const;    // Returns true for value <  0
-	bool IsPositive() const;    // Returns true for value >= 0
+	EA_CONSTEXPR int  compare(const uint128_t& other) const;
+	EA_CONSTEXPR void Negate();
+	EA_CONSTEXPR void Modulus(const uint128_t& divisor, uint128_t& quotient, uint128_t& remainder) const;
+	EA_CONSTEXPR bool IsNegative() const;    // Returns true for value <  0
+	EA_CONSTEXPR bool IsPositive() const;    // Returns true for value >= 0
 };
 
 
@@ -274,9 +274,9 @@ protected:
 EA_CONSTEXPR inline int128_t_base::operator bool() const               { return mPart0 || mPart1; }
 EA_CONSTEXPR inline int128_t_base::operator char() const               { return static_cast<char>(Low()); }
 #if EA_WCHAR_UNIQUE
-// EA_CONSTEXPR inline int128_t_base::operator char16_t() const           { return static_cast<char16_t>(Low()); }
-// EA_CONSTEXPR inline int128_t_base::operator char32_t() const           { return static_cast<char32_t>(Low()); }
-// EA_CONSTEXPR inline int128_t_base::operator wchar_t() const            { return static_cast<wchar_t>(Low()); }
+// EA_CONSTEXPR EA_CONSTEXPR inline int128_t_base::operator char16_t() const           { return static_cast<char16_t>(Low()); }
+// EA_CONSTEXPR EA_CONSTEXPR inline int128_t_base::operator char32_t() const           { return static_cast<char32_t>(Low()); }
+// EA_CONSTEXPR EA_CONSTEXPR inline int128_t_base::operator wchar_t() const            { return static_cast<wchar_t>(Low()); }
 #endif
 EA_CONSTEXPR inline int128_t_base::operator int() const                { return static_cast<int>(Low()); }
 EA_CONSTEXPR inline int128_t_base::operator long() const               { return static_cast<long>(Low()); }
@@ -291,11 +291,11 @@ EA_CONSTEXPR inline int128_t_base::operator float() const              { return 
 EA_CONSTEXPR inline int128_t_base::operator double() const             { return static_cast<double>(Low()); }
 EA_CONSTEXPR inline int128_t_base::operator long double() const        { return static_cast<long double>(Low()); }
 #if EA_INT128_INTRINSIC_AVAILABLE
-EA_CONSTEXPR inline int128_t_base::operator __int128() const           { return static_cast<__int128>(Low()); }
-EA_CONSTEXPR inline int128_t_base::operator unsigned __int128() const  { return static_cast<unsigned __int128>(Low()); }
+EA_CONSTEXPR EA_CONSTEXPR inline int128_t_base::operator __int128() const           { return static_cast<__int128>(Low()); }
+EA_CONSTEXPR EA_CONSTEXPR inline int128_t_base::operator unsigned __int128() const  { return static_cast<unsigned __int128>(Low()); }
 #endif
 
-inline void int128_t_base::SetBit(int nIndex, int value)
+EA_CONSTEXPR inline void int128_t_base::SetBit(int nIndex, int value)
 {
 	// EA_ASSERT((nIndex >= 0) && (nIndex < 128));
 
@@ -317,7 +317,7 @@ inline void int128_t_base::SetBit(int nIndex, int value)
 	}
 }
 
-inline int int128_t_base::GetBit(int nIndex) const
+EA_CONSTEXPR inline int int128_t_base::GetBit(int nIndex) const
 {
 	// EA_ASSERT((nIndex >= 0) && (nIndex < 128));
 
@@ -330,40 +330,40 @@ inline int int128_t_base::GetBit(int nIndex) const
 	return 0;
 }
 
-inline int128_t_base::int128_t_base(uint32_t nPart0, uint32_t nPart1, uint32_t nPart2, uint32_t nPart3)
+EA_CONSTEXPR inline int128_t_base::int128_t_base(uint32_t nPart0, uint32_t nPart1, uint32_t nPart2, uint32_t nPart3) : 
+	mPart1(((uint64_t)nPart3 << 32) + nPart2)
+	,mPart0(((uint64_t)nPart1 << 32) + nPart0)
 {
-	mPart1 = ((uint64_t)nPart3 << 32) + nPart2;
-	mPart0 = ((uint64_t)nPart1 << 32) + nPart0;
 }
 
-inline int128_t_base::int128_t_base(uint64_t nPart0, uint64_t nPart1)
+EA_CONSTEXPR inline int128_t_base::int128_t_base(uint64_t nPart0, uint64_t nPart1) : 
+	mPart1(nPart1)
+	,mPart0(nPart0)
 {
-	mPart1 = nPart1;
-	mPart0 = nPart0;
 }
 
-inline int128_t_base::int128_t_base(uint8_t value)
+EA_CONSTEXPR inline int128_t_base::int128_t_base(uint8_t value) : 
+	mPart1(0)
+	,mPart0(value)
 {
-	mPart1 = 0;
-	mPart0 = value;
 }
 
-inline int128_t_base::int128_t_base(uint16_t value)
+EA_CONSTEXPR inline int128_t_base::int128_t_base(uint16_t value) : 
+	mPart1(0)
+	,mPart0(value)
 {
-	mPart1 = 0;
-	mPart0 = value;
 }
 
-inline int128_t_base::int128_t_base(uint32_t value)
+EA_CONSTEXPR inline int128_t_base::int128_t_base(uint32_t value) : 
+	mPart1(0)
+	,mPart0(value)
 {
-	mPart1 = 0;
-	mPart0 = value;
 }
 
-inline int128_t_base::int128_t_base(uint64_t value)
+EA_CONSTEXPR inline int128_t_base::int128_t_base(uint64_t value) : 
+	mPart1(0)
+	,mPart0(value)
 {
-	mPart1 = 0;
-	mPart0 = value;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -373,7 +373,7 @@ inline int128_t_base::int128_t_base(uint64_t value)
 // The output 'result' *is* allowed to point to the same memory as one of the inputs.
 // To consider: Fix 'defect' of this function whereby it doesn't implement overflow wraparound.
 //
-inline void int128_t_base::OperatorPlus(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
+EA_CONSTEXPR inline void int128_t_base::OperatorPlus(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
 {
 	uint64_t t      = value1.mPart0 + value2.mPart0;
 	uint64_t nCarry = (t < value1.mPart0) && (t < value2.mPart0);
@@ -388,7 +388,7 @@ inline void int128_t_base::OperatorPlus(const int128_t_base& value1, const int12
 // The output 'result' *is* allowed to point to the same memory as one of the inputs.
 // To consider: Fix 'defect' of this function whereby it doesn't implement overflow wraparound.
 //
-inline void int128_t_base::OperatorMinus(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
+EA_CONSTEXPR inline void int128_t_base::OperatorMinus(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
 {
 	uint64_t t      = (value1.mPart0 - value2.mPart0);
 	uint64_t nCarry = (value1.mPart0 < value2.mPart0) ? 1u : 0u;
@@ -413,7 +413,7 @@ inline void int128_t_base::OperatorMinus(const int128_t_base& value1, const int1
 //                      +  0000000000000004 | 0000000000000002 (0000000000000000)
 //     -------------------------------------------------------------------------
 //
-inline void int128_t_base::OperatorMul(const int128_t_base& a, const int128_t_base& b, int128_t_base& result)
+EA_CONSTEXPR inline void int128_t_base::OperatorMul(const int128_t_base& a, const int128_t_base& b, int128_t_base& result)
 {
 	// To consider: Use compiler or OS-provided custom functionality here, such as
 	//              Windows UnsignedMultiply128 and GCC's built-in int128_t.
@@ -461,7 +461,7 @@ inline void int128_t_base::OperatorMul(const int128_t_base& a, const int128_t_ba
 // The output 'result' may *not* be the same as one the input.
 // With rightward shifts of negative numbers, shift in zero from the left side.
 //
-inline void int128_t_base::OperatorShiftRight(const int128_t_base& value, int nShift, int128_t_base& result)
+EA_CONSTEXPR inline void int128_t_base::OperatorShiftRight(const int128_t_base& value, int nShift, int128_t_base& result)
 {
 	if(nShift >= 0)
 	{
@@ -492,7 +492,7 @@ inline void int128_t_base::OperatorShiftRight(const int128_t_base& value, int nS
 // The output 'result' may *not* be the same as one the input.
 // With rightward shifts of negative numbers, shift in zero from the left side.
 //
-inline void int128_t_base::OperatorShiftLeft(const int128_t_base& value, int nShift, int128_t_base& result)
+EA_CONSTEXPR inline void int128_t_base::OperatorShiftLeft(const int128_t_base& value, int nShift, int128_t_base& result)
 {
 	if(nShift >= 0)
 	{
@@ -521,7 +521,7 @@ inline void int128_t_base::OperatorShiftLeft(const int128_t_base& value, int nSh
 }
 
 
-inline bool int128_t_base::operator!() const
+EA_CONSTEXPR inline bool int128_t_base::operator!() const
 {
 	return (mPart0 == 0) && (mPart1 == 0);
 }
@@ -533,7 +533,7 @@ inline bool int128_t_base::operator!() const
 // Returns: value1 ^ value2 into result
 // The output 'result' may be the same as one the input.
 //
-inline void int128_t_base::OperatorXOR(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
+EA_CONSTEXPR inline void int128_t_base::OperatorXOR(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
 {
 	result.mPart0 = (value1.mPart0 ^ value2.mPart0);
 	result.mPart1 = (value1.mPart1 ^ value2.mPart1);
@@ -546,7 +546,7 @@ inline void int128_t_base::OperatorXOR(const int128_t_base& value1, const int128
 // Returns: value1 | value2 into result
 // The output 'result' may be the same as one the input.
 //
-inline void int128_t_base::OperatorOR(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
+EA_CONSTEXPR inline void int128_t_base::OperatorOR(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
 {
 	result.mPart0 = (value1.mPart0 | value2.mPart0);
 	result.mPart1 = (value1.mPart1 | value2.mPart1);
@@ -559,28 +559,28 @@ inline void int128_t_base::OperatorOR(const int128_t_base& value1, const int128_
 // Returns: value1 & value2 into result
 // The output 'result' may be the same as one the input.
 //
-inline void int128_t_base::OperatorAND(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
+EA_CONSTEXPR inline void int128_t_base::OperatorAND(const int128_t_base& value1, const int128_t_base& value2, int128_t_base& result)
 {
 	result.mPart0 = (value1.mPart0 & value2.mPart0);
 	result.mPart1 = (value1.mPart1 & value2.mPart1);
 }
 
 
-inline bool int128_t_base::IsZero() const
+EA_CONSTEXPR inline bool int128_t_base::IsZero() const
 {
 	return (mPart0 == 0) && // Check mPart0 first as this will likely yield faster execution.
 		   (mPart1 == 0);
 }
 
 
-inline void int128_t_base::SetZero()
+EA_CONSTEXPR inline void int128_t_base::SetZero()
 {
 	mPart1 = 0;
 	mPart0 = 0;
 }
 
 
-inline void int128_t_base::TwosComplement()
+EA_CONSTEXPR inline void int128_t_base::TwosComplement()
 {
 	mPart1 = ~mPart1;
 	mPart0 = ~mPart0;
@@ -593,7 +593,7 @@ inline void int128_t_base::TwosComplement()
 }
 
 
-inline void int128_t_base::InverseTwosComplement()
+EA_CONSTEXPR inline void int128_t_base::InverseTwosComplement()
 {
 	// What we want to do, but isn't available at this level:
 	// operator--();
@@ -606,7 +606,7 @@ inline void int128_t_base::InverseTwosComplement()
 }
 
 
-inline void int128_t_base::DoubleToUint128(double value)
+EA_CONSTEXPR inline void int128_t_base::DoubleToUint128(double value)
 {
 	// Currently this function is limited to 64 bits of integer input.
 	// We need to make a better version of this function. Perhaps we should implement 
@@ -625,47 +625,47 @@ inline void int128_t_base::DoubleToUint128(double value)
 // uint128_t implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-inline uint128_t uint128_t::operator^(const uint128_t& other) const
+EA_CONSTEXPR inline uint128_t uint128_t::operator^(const uint128_t& other) const
 {
 	uint128_t temp;
 	uint128_t::OperatorXOR(*this, other, temp);
 	return temp;
 }
 
-inline uint128_t uint128_t::operator|(const uint128_t& other) const
+EA_CONSTEXPR inline uint128_t uint128_t::operator|(const uint128_t& other) const
 {
 	uint128_t temp;
 	uint128_t::OperatorOR(*this, other, temp);
 	return temp;
 }
 
-inline uint128_t uint128_t::operator&(const uint128_t& other) const
+EA_CONSTEXPR inline uint128_t uint128_t::operator&(const uint128_t& other) const
 {
 	uint128_t temp;
 	uint128_t::OperatorAND(*this, other, temp);
 	return temp;
 }
 
-inline uint128_t& uint128_t::operator^=(const uint128_t& value)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator^=(const uint128_t& value)
 {
 	OperatorXOR(*this, value, *this);
 	return *this;
 }
 
-inline uint128_t& uint128_t::operator|=(const uint128_t& value)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator|=(const uint128_t& value)
 {
 	OperatorOR(*this, value, *this);
 	return *this;
 }
 
-inline uint128_t& uint128_t::operator&=(const uint128_t& value)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator&=(const uint128_t& value)
 {
 	OperatorAND(*this, value, *this);
 	return *this;
 }
 
 // With rightward shifts of negative numbers, shift in zero from the left side.
-inline uint128_t uint128_t::operator>>(int nShift) const
+EA_CONSTEXPR inline uint128_t uint128_t::operator>>(int nShift) const
 {
 	uint128_t temp;
 	OperatorShiftRight(*this, nShift, temp);
@@ -673,14 +673,14 @@ inline uint128_t uint128_t::operator>>(int nShift) const
 }
 
 // With rightward shifts of negative numbers, shift in zero from the left side.
-inline uint128_t uint128_t::operator<<(int nShift) const
+EA_CONSTEXPR inline uint128_t uint128_t::operator<<(int nShift) const
 {
 	uint128_t temp;
 	OperatorShiftLeft(*this, nShift, temp);
 	return temp;
 }
 
-inline uint128_t& uint128_t::operator>>=(int nShift)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator>>=(int nShift)
 {
 	uint128_t temp;
 	OperatorShiftRight(*this, nShift, temp);
@@ -688,7 +688,7 @@ inline uint128_t& uint128_t::operator>>=(int nShift)
 	return *this;
 }
 
-inline uint128_t& uint128_t::operator<<=(int nShift)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator<<=(int nShift)
 {
 	uint128_t temp;
 	OperatorShiftLeft(*this, nShift, temp);
@@ -696,58 +696,58 @@ inline uint128_t& uint128_t::operator<<=(int nShift)
 	return *this;
 }
 
-inline uint128_t& uint128_t::operator+=(const uint128_t& value)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator+=(const uint128_t& value)
 {
 	OperatorPlus(*this, value, *this);
 	return *this;
 }
 
-inline uint128_t& uint128_t::operator-=(const uint128_t& value)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator-=(const uint128_t& value)
 {
 	OperatorMinus(*this, value, *this);
 	return *this;
 }
 
-inline uint128_t& uint128_t::operator*=(const uint128_t& value)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator*=(const uint128_t& value)
 {
 	*this = *this * value;
 	return *this;
 }
 
-inline uint128_t& uint128_t::operator/=(const uint128_t& value)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator/=(const uint128_t& value)
 {
 	*this = *this / value;
 	return *this;
 }
 
-inline uint128_t& uint128_t::operator%=(const uint128_t& value)
+EA_CONSTEXPR inline uint128_t& uint128_t::operator%=(const uint128_t& value)
 {
 	*this = *this % value;
 	return *this;
 }
 
-inline uint128_t uint128_t::operator+(const uint128_t& other)
+EA_CONSTEXPR inline uint128_t uint128_t::operator+(const uint128_t& other)
 {
 	uint128_t temp;
 	uint128_t::OperatorPlus(*this, other, temp);
 	return temp;
 }
 
-inline uint128_t uint128_t::operator-(const uint128_t& other)
+EA_CONSTEXPR inline uint128_t uint128_t::operator-(const uint128_t& other)
 {
 	uint128_t temp;
 	uint128_t::OperatorMinus(*this, other, temp);
 	return temp;
 }
 
-inline uint128_t uint128_t::operator*(const uint128_t& other)
+EA_CONSTEXPR inline uint128_t uint128_t::operator*(const uint128_t& other)
 {
 	uint128_t returnValue;
 	int128_t_base::OperatorMul(*this, other, returnValue);
 	return returnValue;
 }
 
-inline uint128_t uint128_t::operator/(const uint128_t& other)
+EA_CONSTEXPR inline uint128_t uint128_t::operator/(const uint128_t& other)
 {
 	uint128_t remainder;
 	uint128_t quotient;
@@ -755,7 +755,7 @@ inline uint128_t uint128_t::operator/(const uint128_t& other)
 	return quotient;
 }
 
-inline uint128_t uint128_t::operator%(const uint128_t& other)
+EA_CONSTEXPR inline uint128_t uint128_t::operator%(const uint128_t& other)
 {
 	uint128_t remainder;
 	uint128_t quotient;
@@ -763,31 +763,31 @@ inline uint128_t uint128_t::operator%(const uint128_t& other)
 	return remainder;
 }
 
-inline uint128_t uint128_t::operator+() const
+EA_CONSTEXPR inline uint128_t uint128_t::operator+() const
 {
 	return *this;
 }
 
-inline uint128_t uint128_t::operator~() const
+EA_CONSTEXPR inline uint128_t uint128_t::operator~() const
 {
 	return uint128_t(~mPart0, ~mPart1);
 }
 
-inline uint128_t& uint128_t::operator--()
+EA_CONSTEXPR inline uint128_t& uint128_t::operator--()
 {
 	int128_t_base one((uint32_t)1);
 	OperatorMinus(*this, one, *this);
 	return *this;
 }
 
-inline uint128_t uint128_t::operator--(int)
+EA_CONSTEXPR inline uint128_t uint128_t::operator--(int)
 {
 	uint128_t temp((uint32_t)1);
 	OperatorMinus(*this, temp, temp);
 	return temp;
 }
 
-inline uint128_t uint128_t::operator++(int)
+EA_CONSTEXPR inline uint128_t uint128_t::operator++(int)
 {
 	uint128_t prev = *this;
 	uint128_t temp((uint32_t)1);
@@ -795,19 +795,19 @@ inline uint128_t uint128_t::operator++(int)
 	return prev;
 }
 
-inline uint128_t& uint128_t::operator++() 
+EA_CONSTEXPR inline uint128_t& uint128_t::operator++() 
 {
 	int128_t_base one((uint32_t)1);
 	OperatorPlus(*this, one, *this);
 	return *this;
 }
 
-inline void uint128_t::Negate()
+EA_CONSTEXPR inline void uint128_t::Negate()
 {
 	TwosComplement();
 }
 
-inline uint128_t uint128_t::operator-() const
+EA_CONSTEXPR inline uint128_t uint128_t::operator-() const
 {
 	uint128_t returnValue(*this);
 	returnValue.Negate();
@@ -818,7 +818,7 @@ inline uint128_t uint128_t::operator-() const
 // If value1 <  value2, the return value is -1.
 // If value1 == value2, the return value is 0.
 // If value1 >  value2, the return value is 1.
-inline int uint128_t::compare(const uint128_t& other) const
+EA_CONSTEXPR inline int uint128_t::compare(const uint128_t& other) const
 {
 	// Compare individual parts. At this point, the two numbers have the same sign.
 	if(mPart1 == other.mPart1)
@@ -835,7 +835,7 @@ inline int uint128_t::compare(const uint128_t& other) const
 }
 
 EA_DISABLE_VC_WARNING(4723) // warning C4723: potential divide by 0
-inline void uint128_t::Modulus(const uint128_t& divisor, uint128_t& quotient, uint128_t& remainder) const
+EA_CONSTEXPR inline void uint128_t::Modulus(const uint128_t& divisor, uint128_t& quotient, uint128_t& remainder) const
 {
 	uint128_t tempDividend(*this);
 	uint128_t tempDivisor(divisor);
@@ -871,24 +871,24 @@ inline void uint128_t::Modulus(const uint128_t& divisor, uint128_t& quotient, ui
 }
 EA_RESTORE_VC_WARNING()
 
-inline bool uint128_t::operator==(const uint128_t& other) const
+EA_CONSTEXPR inline bool uint128_t::operator==(const uint128_t& other) const
 {
 	return (mPart0 == other.mPart0) && // Check mPart0 first as this will likely yield faster execution.
 		   (mPart1 == other.mPart1);
 }
 
-inline bool uint128_t::operator< (const uint128_t& other) const { return (compare(other) < 0); }
-inline bool uint128_t::operator!=(const uint128_t& other) const { return !(*this == other); }
-inline bool uint128_t::operator> (const uint128_t& other) const { return other < *this; }
-inline bool uint128_t::operator>=(const uint128_t& other) const { return !(*this < other); }
-inline bool uint128_t::operator<=(const uint128_t& other) const { return !(other < *this); }
+EA_CONSTEXPR inline bool uint128_t::operator< (const uint128_t& other) const { return (compare(other) < 0); }
+EA_CONSTEXPR inline bool uint128_t::operator!=(const uint128_t& other) const { return !(*this == other); }
+EA_CONSTEXPR inline bool uint128_t::operator> (const uint128_t& other) const { return other < *this; }
+EA_CONSTEXPR inline bool uint128_t::operator>=(const uint128_t& other) const { return !(*this < other); }
+EA_CONSTEXPR inline bool uint128_t::operator<=(const uint128_t& other) const { return !(other < *this); }
 
-inline bool uint128_t::IsNegative() const
+EA_CONSTEXPR inline bool uint128_t::IsNegative() const
 {   // True if value < 0
 	return false;
 }
 
-inline bool uint128_t::IsPositive() const
+EA_CONSTEXPR inline bool uint128_t::IsPositive() const
 {
 	// True of value >= 0
 	return true;
@@ -903,7 +903,7 @@ inline bool uint128_t::IsPositive() const
 // int128_t implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-inline void int128_t::Negate()
+EA_CONSTEXPR inline void int128_t::Negate()
 {
 	if (IsPositive())
 		TwosComplement();
@@ -911,28 +911,28 @@ inline void int128_t::Negate()
 		InverseTwosComplement();
 }
 
-inline int128_t int128_t::operator-() const
+EA_CONSTEXPR inline int128_t int128_t::operator-() const
 {
 	int128_t returnValue(*this);
 	returnValue.Negate();
 	return returnValue;
 }
 
-inline int128_t& int128_t::operator++()
+EA_CONSTEXPR inline int128_t& int128_t::operator++()
 {
 	int128_t_base one((uint32_t)1);
 	OperatorPlus(*this, one, *this);
 	return *this;
 }
 
-inline int128_t& int128_t::operator--()
+EA_CONSTEXPR inline int128_t& int128_t::operator--()
 {
 	int128_t_base one((uint32_t)1);
 	OperatorMinus(*this, one, *this);
 	return *this;
 }
 
-inline int128_t int128_t::operator++(int)
+EA_CONSTEXPR inline int128_t int128_t::operator++(int)
 {
 	int128_t prev = *this;
 	int128_t temp((uint32_t)1);
@@ -940,31 +940,31 @@ inline int128_t int128_t::operator++(int)
 	return prev;
 }
 
-inline int128_t int128_t::operator--(int)
+EA_CONSTEXPR inline int128_t int128_t::operator--(int)
 {
 	int128_t temp((uint32_t)1);
 	OperatorMinus(*this, temp, temp);
 	return temp;
 }
 
-inline int128_t int128_t::operator+() const
+EA_CONSTEXPR inline int128_t int128_t::operator+() const
 {
 	return *this;
 }
 
-inline int128_t int128_t::operator~() const
+EA_CONSTEXPR inline int128_t int128_t::operator~() const
 {
 	return int128_t(~mPart0, ~mPart1);
 }
 
-inline int128_t int128_t::operator+(const int128_t& other)
+EA_CONSTEXPR inline int128_t int128_t::operator+(const int128_t& other)
 {
 	int128_t temp;
 	int128_t::OperatorPlus(*this, other, temp);
 	return temp;
 }
 
-inline int128_t int128_t::operator-(const int128_t& other)
+EA_CONSTEXPR inline int128_t int128_t::operator-(const int128_t& other)
 {
 	int128_t temp;
 	int128_t::OperatorMinus(*this, other, temp);
@@ -975,7 +975,7 @@ inline int128_t int128_t::operator-(const int128_t& other)
 // If value1 <  value2, the return value is -1.
 // If value1 == value2, the return value is 0.
 // If value1 >  value2, the return value is 1.
-inline int int128_t::compare(const int128_t& other) const
+EA_CONSTEXPR inline int int128_t::compare(const int128_t& other) const
 {
 	// Cache some values. Positive means >= 0. Negative means < 0 and thus means '!positive'.
 	const bool bValue1IsPositive(      IsPositive());
@@ -999,49 +999,49 @@ inline int int128_t::compare(const int128_t& other) const
 	return -1;
 }
 
-inline bool int128_t::operator==(const int128_t& other) const
+EA_CONSTEXPR inline bool int128_t::operator==(const int128_t& other) const
 {
 	return (mPart0 == other.mPart0) && // Check mPart0 first as this will likely yield faster execution.
 		   (mPart1 == other.mPart1);
 }
 
-inline bool int128_t::operator!=(const int128_t& other) const
+EA_CONSTEXPR inline bool int128_t::operator!=(const int128_t& other) const
 {
 	return (mPart0 != other.mPart0) ||  // Check mPart0 first as this will likely yield faster execution.
 		   (mPart1 != other.mPart1);
 }
 
-inline bool int128_t::operator>(const int128_t& other) const
+EA_CONSTEXPR inline bool int128_t::operator>(const int128_t& other) const
 {
 	return (compare(other) > 0);
 }
 
-inline bool int128_t::operator>=(const int128_t& other) const
+EA_CONSTEXPR inline bool int128_t::operator>=(const int128_t& other) const
 {
 	return (compare(other) >= 0);
 }
 
-inline bool int128_t::operator<(const int128_t& other) const
+EA_CONSTEXPR inline bool int128_t::operator<(const int128_t& other) const
 {
 	return (compare(other) < 0);
 }
 
-inline bool int128_t::operator<=(const int128_t& other) const
+EA_CONSTEXPR inline bool int128_t::operator<=(const int128_t& other) const
 {
 	return (compare(other) <= 0);
 }
 
-inline bool int128_t::IsNegative() const
+EA_CONSTEXPR inline bool int128_t::IsNegative() const
 {   // True if value < 0
 	return ((mPart1 & UINT64_C(0x8000000000000000)) != 0);
 }
 
-inline bool int128_t::IsPositive() const
+EA_CONSTEXPR inline bool int128_t::IsPositive() const
 {   // True of value >= 0
 	return ((mPart1 & UINT64_C(0x8000000000000000)) == 0);
 }
 
-inline int128_t int128_t::operator*(const int128_t& other)
+EA_CONSTEXPR inline int128_t int128_t::operator*(const int128_t& other)
 {
 	int128_t a(*this);
 	int128_t b(other);
@@ -1072,7 +1072,7 @@ inline int128_t int128_t::operator*(const int128_t& other)
 	return returnValue;
 }
 
-inline int128_t int128_t::operator/(const int128_t& other)
+EA_CONSTEXPR inline int128_t int128_t::operator/(const int128_t& other)
 {
 	int128_t remainder;
 	int128_t quotient;
@@ -1080,26 +1080,26 @@ inline int128_t int128_t::operator/(const int128_t& other)
 	return quotient;
 }
 
-inline int128_t int128_t::operator<<(int nShift) const
+EA_CONSTEXPR inline int128_t int128_t::operator<<(int nShift) const
 {
 	int128_t temp;
 	OperatorShiftLeft(*this, nShift, temp);
 	return temp;
 }
 
-inline int128_t& int128_t::operator+=(const int128_t& value)
+EA_CONSTEXPR inline int128_t& int128_t::operator+=(const int128_t& value)
 {
 	OperatorPlus(*this, value, *this);
 	return *this;
 }
 
-inline int128_t& int128_t::operator-=(const int128_t& value)
+EA_CONSTEXPR inline int128_t& int128_t::operator-=(const int128_t& value)
 {
 	OperatorMinus(*this, value, *this);
 	return *this;
 }
 
-inline int128_t& int128_t::operator<<=(int nShift)
+EA_CONSTEXPR inline int128_t& int128_t::operator<<=(int nShift)
 {
 	int128_t temp;
 	OperatorShiftLeft(*this, nShift, temp);
@@ -1107,19 +1107,19 @@ inline int128_t& int128_t::operator<<=(int nShift)
 	return *this;
 }
 
-inline int128_t& int128_t::operator*=(const int128_t& value)
+EA_CONSTEXPR inline int128_t& int128_t::operator*=(const int128_t& value)
 {
 	*this = *this * value;
 	return *this;
 }
 
-inline int128_t& int128_t::operator%=(const int128_t& value)
+EA_CONSTEXPR inline int128_t& int128_t::operator%=(const int128_t& value)
 {
 	*this = *this % value;
 	return *this;
 }
 
-inline int128_t int128_t::operator%(const int128_t& other)
+EA_CONSTEXPR inline int128_t int128_t::operator%(const int128_t& other)
 {
 	int128_t remainder;
 	int128_t quotient;
@@ -1127,21 +1127,21 @@ inline int128_t int128_t::operator%(const int128_t& other)
 	return remainder;
 }
 
-inline int128_t& int128_t::operator/=(const int128_t& value)
+EA_CONSTEXPR inline int128_t& int128_t::operator/=(const int128_t& value)
 {
 	*this = *this / value;
 	return *this;
 }
 
 // With rightward shifts of negative numbers, shift in zero from the left side.
-inline int128_t int128_t::operator>>(int nShift) const
+EA_CONSTEXPR inline int128_t int128_t::operator>>(int nShift) const
 {
 	int128_t temp;
 	OperatorShiftRight(*this, nShift, temp);
 	return temp;
 }
 
-inline int128_t& int128_t::operator>>=(int nShift)
+EA_CONSTEXPR inline int128_t& int128_t::operator>>=(int nShift)
 {
 	int128_t temp;
 	OperatorShiftRight(*this, nShift, temp);
@@ -1149,14 +1149,14 @@ inline int128_t& int128_t::operator>>=(int nShift)
 	return *this;
 }
 
-inline int128_t int128_t::operator^(const int128_t& other) const
+EA_CONSTEXPR inline int128_t int128_t::operator^(const int128_t& other) const
 {
 	int128_t temp;
 	int128_t::OperatorXOR(*this, other, temp);
 	return temp;
 }
 
-inline int128_t int128_t::operator|(const int128_t& other) const
+EA_CONSTEXPR inline int128_t int128_t::operator|(const int128_t& other) const
 {
 	int128_t temp;
 	int128_t::OperatorOR(*this, other, temp);
@@ -1164,33 +1164,33 @@ inline int128_t int128_t::operator|(const int128_t& other) const
 }
 
 
-inline int128_t int128_t::operator&(const int128_t& other) const
+EA_CONSTEXPR inline int128_t int128_t::operator&(const int128_t& other) const
 {
 	int128_t temp;
 	int128_t::OperatorAND(*this, other, temp);
 	return temp;
 }
 
-inline int128_t& int128_t::operator^=(const int128_t& value)
+EA_CONSTEXPR inline int128_t& int128_t::operator^=(const int128_t& value)
 {
 	OperatorXOR(*this, value, *this);
 	return *this;
 }
 
-inline int128_t& int128_t::operator|=(const int128_t& value)
+EA_CONSTEXPR inline int128_t& int128_t::operator|=(const int128_t& value)
 {
 	OperatorOR(*this, value, *this);
 	return *this;
 }
 
-inline int128_t& int128_t::operator&=(const int128_t& value)
+EA_CONSTEXPR inline int128_t& int128_t::operator&=(const int128_t& value)
 {
 	OperatorAND(*this, value, *this);
 	return *this;
 }
 
 EA_DISABLE_VC_WARNING(4723) // warning C4723: potential divide by 0
-inline void int128_t::Modulus(const int128_t& divisor, int128_t& quotient, int128_t& remainder) const
+EA_CONSTEXPR inline void int128_t::Modulus(const int128_t& divisor, int128_t& quotient, int128_t& remainder) const
 {
 	int128_t tempDividend(*this);
 	int128_t tempDivisor(divisor);
@@ -1265,8 +1265,8 @@ EA_RESTORE_VC_WARNING()
 // string of the digits. This will work in most cases that suffix pasting
 // would work.
 //
-/* EA_CONSTEXPR */ inline uint128_t UINT128_C(uint64_t nPart1, uint64_t nPart0) { return uint128_t(nPart0, nPart1); }
-/* EA_CONSTEXPR */ inline int128_t INT128_C(int64_t nPart1, int64_t nPart0) { return int128_t(static_cast<uint64_t>(nPart0), static_cast<uint64_t>(nPart1)); }
+/* EA_CONSTEXPR */ EA_CONSTEXPR inline uint128_t UINT128_C(uint64_t nPart1, uint64_t nPart0) { return uint128_t(nPart0, nPart1); }
+/* EA_CONSTEXPR */ EA_CONSTEXPR inline int128_t INT128_C(int64_t nPart1, int64_t nPart0) { return int128_t(static_cast<uint64_t>(nPart0), static_cast<uint64_t>(nPart1)); }
 
 
 
