@@ -21,6 +21,27 @@
 		    return NULL;
 		}
 
+		void* allocator_forge::allocate(size_t n, int /*flags*/, const char* f, int l, const char* sf)
+		{
+		    return tf_malloc_internal(n, f, l, sf);
+		}
+
+	    void* allocator_forge::allocate(size_t n,
+	                                    size_t alignment,
+	                                    size_t alignmentOffset,
+	                                    int /*flags*/,
+	                                    const char* f,
+	                                    int l,
+	                                    const char* sf)
+	    {
+		    if ((alignmentOffset % alignment) ==
+		        0) // We check for (offset % alignmnent == 0) instead of (offset == 0) because any block which is
+		           // aligned on e.g. 64 also is aligned at an offset of 64 by definition.
+			    return tf_memalign_internal(alignment, n, f, l, sf);
+
+		    return NULL;
+	    }
+
 		void allocator_forge::deallocate(void* p, size_t /*n*/)
 		{ 
 			tf_free(p);

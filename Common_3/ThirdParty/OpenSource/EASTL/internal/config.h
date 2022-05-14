@@ -1712,20 +1712,28 @@ typedef EASTL_SSIZE_T eastl_ssize_t; // Signed version of eastl_size_t. Concept 
 //     allocator* GetDefaultAllocator(); // This is used for anonymous allocations.
 // }
 
-#ifndef EASTLAlloc // To consider: Instead of calling through pAllocator, just go directly to operator new, since that's what allocator does.
-	#define EASTLAlloc(allocator, n) (allocator).allocate(n);
-#endif
-
 #ifndef EASTLAllocFlags // To consider: Instead of calling through pAllocator, just go directly to operator new, since that's what allocator does.
-	#define EASTLAllocFlags(allocator, n, flags) (allocator).allocate(n, flags);
+	#define EASTLAllocFlags(allocator, n, flags) (allocator).allocate(n, flags)
 #endif
 
-#ifndef EASTLAllocAligned
-	#define EASTLAllocAligned(allocator, n, alignment, offset) (allocator).allocate((n), (alignment), (offset))
+#ifndef EASTLAllocTag
+#define EASTLAllocTag(allocator, n, file, line, functionName) (allocator).allocate(n, 0, file, line, functionName)
+#endif
+
+#ifndef EASTLAlloc // To consider: Instead of calling through pAllocator, just go directly to operator new, since that's what allocator does.
+#define EASTLAlloc(allocator, n) (EASTLAllocTag(allocator, n, __FILE__, __LINE__, __FUNCTION__))
 #endif
 
 #ifndef EASTLAllocAlignedFlags
 	#define EASTLAllocAlignedFlags(allocator, n, alignment, offset, flags) (allocator).allocate((n), (alignment), (offset), (flags))
+#endif
+
+#ifndef EASTLAllocAlignedTag
+#define EASTLAllocAlignedTag(allocator, n, alignment, offset, file, line, functionName) (allocator).allocate((n), 0, (alignment), (offset), file, line, functionName)
+#endif
+
+#ifndef EASTLAllocAligned
+#define EASTLAllocAligned(allocator, n, alignment, offset) (EASTLAllocAlignedTag((allocator), (n), (alignment), (offset), __FILE__, __LINE__, __FUNCTION__))
 #endif
 
 #ifndef EASTLFree

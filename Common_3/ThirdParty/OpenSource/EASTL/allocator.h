@@ -342,7 +342,6 @@ namespace eastl
 			return EASTLAlloc(*pAllocator, n);
 	}
 
-
 	/// allocate_memory
 	///
 	/// This is a memory allocation dispatching function.
@@ -351,12 +350,18 @@ namespace eastl
 	///        function instead of a standalone function like below.
 	///
 	template <typename Allocator>
-	inline void* allocate_memory(Allocator& a, size_t n, size_t alignment, size_t alignmentOffset)
+	inline void* allocate_memory_internal(Allocator& a,
+	                                      size_t n,
+	                                      size_t alignment,
+	                                      size_t alignmentOffset,
+	                                      const char* f,
+	                                      int l,
+	                                      const char* sf)
 	{
 		void *result;
 		if (alignment <= EASTL_ALLOCATOR_MIN_ALIGNMENT)
 		{
-			result = EASTLAlloc(a, n);
+			result = EASTLAllocTag(a, n, f, l, sf);
 			// Ensure the result is correctly aligned.  An assertion likely indicates a mismatch between EASTL_ALLOCATOR_MIN_ALIGNMENT and the minimum alignment
 			// of EASTLAlloc.  If there is a mismatch it may be necessary to define EASTL_ALLOCATOR_MIN_ALIGNMENT to be the minimum alignment of EASTLAlloc, or
 			// to increase the alignment of EASTLAlloc to match EASTL_ALLOCATOR_MIN_ALIGNMENT.
@@ -364,7 +369,7 @@ namespace eastl
 		}
 		else
 		{
-			result = EASTLAllocAligned(a, n, alignment, alignmentOffset);
+			result = EASTLAllocAlignedTag(a, n, alignment, alignmentOffset, f, l, sf);
 			// Ensure the result is correctly aligned.  An assertion here may indicate a bug in the allocator.
 			auto resultMinusOffset = (char*)result - alignmentOffset;
 			EA_UNUSED(resultMinusOffset);
@@ -372,8 +377,9 @@ namespace eastl
 		}
 		return result;
 	}
-
 }
+
+#define allocate_memory(a, n, alignment, alignmentOffset) eastl::allocate_memory_internal(a, n, alignment, alignmentOffset, __FILE__, __LINE__, __FUNCTION__)
 
 
 #endif // Header include guard

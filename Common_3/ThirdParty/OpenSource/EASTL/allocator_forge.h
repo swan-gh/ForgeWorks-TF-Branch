@@ -40,6 +40,16 @@ namespace eastl
 
 		void* allocate(size_t n, size_t alignment, size_t alignmentOffset, int /*flags*/ = 0);
 
+		void* allocate(size_t n, int /*flags*/, const char* f, int l, const char* sf);
+
+		void* allocate(size_t n,
+		                size_t alignment,
+		                size_t alignmentOffset,
+		                int /*flags*/,
+		                const char* f,
+		                int l,
+		                const char* sf);
+
 		void deallocate(void* p, size_t /*n*/);
 
 		const char* get_name() const { return "allocator_forge"; }
