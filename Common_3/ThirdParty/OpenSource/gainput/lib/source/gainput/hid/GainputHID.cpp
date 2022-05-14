@@ -4,8 +4,8 @@
 #include "GainputHIDTypes.h"
 #include "GainputHIDWhitelist.h"
 #include "../../hidapi/hidapi.h"
-#include "../../../../../OS/Interfaces/ITime.h"
-#include "../../../../../OS/Interfaces/ILog.h"
+#include "../../../../../../../OS/Interfaces/ITime.h"
+#include "../../../../../../../OS/Interfaces/ILog.h"
 
 #include "hidparsers/HIDParserPS4Controller.h"
 #include "hidparsers/HIDParserPS5Controller.h"
