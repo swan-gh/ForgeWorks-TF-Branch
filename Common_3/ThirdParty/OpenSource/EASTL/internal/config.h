@@ -1729,7 +1729,7 @@ typedef EASTL_SSIZE_T eastl_ssize_t; // Signed version of eastl_size_t. Concept 
 #endif
 
 #ifndef EASTLAllocAlignedTag
-#define EASTLAllocAlignedTag(allocator, n, alignment, offset, file, line, functionName) (allocator).allocate((n), 0, (alignment), (offset), file, line, functionName)
+#define EASTLAllocAlignedTag(allocator, n, alignment, offset, file, line, functionName) (allocator).allocate((n), (alignment), (offset), 0, file, line, functionName)
 #endif
 
 #ifndef EASTLAllocAligned
