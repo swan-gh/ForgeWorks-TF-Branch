@@ -172,6 +172,10 @@ EA_RESTORE_ALL_VC_WARNINGS()
 			#if defined(EA_WCHAR_UNIQUE) && EA_WCHAR_UNIQUE
 				EASTL_EASTDC_API int Vsnprintf(wchar_t* EA_RESTRICT pDestination, size_t n, const wchar_t* EA_RESTRICT pFormat, va_list arguments);
 			#endif
+
+			#if defined(EA_COMPILER_CPP20_ENABLED)
+				EASTL_EASTDC_API int Vsnprintf(char * EA_RESTRICT pDestination, size_t n, const char * EA_RESTRICT pFormat, va_list arguments);
+			#endif
 		}
 	}
 
@@ -189,6 +193,11 @@ EA_RESTORE_ALL_VC_WARNINGS()
 		#if defined(EA_WCHAR_UNIQUE) && EA_WCHAR_UNIQUE
 			inline int Vsnprintf(wchar_t* EA_RESTRICT pDestination, size_t n, const wchar_t* EA_RESTRICT pFormat, va_list arguments)
 			{ return EA::StdC::Vsnprintf(pDestination, n, pFormat, arguments); }
+		#endif
+
+		#if defined(EA_COMPILER_CPP20_ENABLED)
+			inline int Vsnprintf(char * EA_RESTRICT pDestination, size_t n, const char * EA_RESTRICT pFormat, va_list arguments)
+				{ return EA::StdC::Vsnprintf(pDestination, n, pFormat, arguments); }
 		#endif
 	}
 #else

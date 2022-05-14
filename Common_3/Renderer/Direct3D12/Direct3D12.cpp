@@ -2322,7 +2322,7 @@ void d3d12_addQueue(Renderer* pRenderer, QueueDesc* pDesc, Queue** ppQueue)
 	CHECK_HRESULT(hook_create_command_queue(pRenderer->mD3D12.pDxDevice, &queueDesc, &pQueue->mD3D12.pDxQueue));
 
 	wchar_t  queueTypeBuffer[32] = {};
-	wchar_t* queueType = NULL;
+	wchar_t const * queueType = NULL;
 	switch (queueDesc.Type)
 	{
 		case D3D12_COMMAND_LIST_TYPE_DIRECT: queueType = L"GRAPHICS QUEUE"; break;
@@ -2492,7 +2492,7 @@ void d3d12_toggleVSync(Renderer* pRenderer, SwapChain** ppSwapChain)
 
 	SwapChain* pSwapChain = *ppSwapChain;
 	//set descriptor vsync boolean
-	pSwapChain->mEnableVsync = !pSwapChain->mEnableVsync;
+	pSwapChain->mEnableVsync = !static_cast<bool>(pSwapChain->mEnableVsync);
 #if !defined(XBOX)
 	if (!pSwapChain->mEnableVsync)
 	{
@@ -3651,7 +3651,8 @@ void d3d12_compileShader(
 		IDxcIncludeHandler* pInclude = NULL;
 		pLibrary->CreateIncludeHandler(&pInclude);
 
-		WCHAR* entryName = L"main";
+		WCHAR  defaultEntryName[] = L"main";
+		WCHAR* entryName = &defaultEntryName[0];
 		if (pEntryPoint != NULL)
 		{
 			entryName = (WCHAR*)tf_calloc(strlen(pEntryPoint) + 1, sizeof(WCHAR));
@@ -4510,7 +4511,7 @@ void d3d12_updateDescriptorSet(
 			for (uint32_t arr = 0; arr < arrayCount; ++arr)
 			{
 				VALIDATE_DESCRIPTOR(
-					pParam->ppSamplers[arr] != D3D12_GPU_VIRTUAL_ADDRESS_NULL, "NULL Sampler (%s [%u] )", pDesc->pName, arr);
+					(void*)pParam->ppSamplers[arr] != (void*)D3D12_GPU_VIRTUAL_ADDRESS_NULL, "NULL Sampler (%s [%u] )", pDesc->pName, arr);
 
 				copy_descriptor_handle(
 					pRenderer->mD3D12.pSamplerHeaps[nodeIndex], pParam->ppSamplers[arr]->mD3D12.mDxHandle,
@@ -6651,7 +6652,7 @@ void d3d12_uploadVirtualTexturePage(Cmd* pCmd, Texture* pTexture, VirtualTexture
 		Src.PlacedFootprint =
 			D3D12_PLACED_SUBRESOURCE_FOOTPRINT{ 0,
 								{ Desc.Format,
-									(UINT)pTexture->pSvt->mSparseVirtualTexturePageWidth, (UINT)pTexture->pSvt->mSparseVirtualTexturePageHeight, 1, (UINT)pTexture->pSvt->mSparseVirtualTexturePageWidth * sizeof(uint32_t) } };
+									(UINT)pTexture->pSvt->mSparseVirtualTexturePageWidth, (UINT)pTexture->pSvt->mSparseVirtualTexturePageHeight, 1, static_cast<UINT>(pTexture->pSvt->mSparseVirtualTexturePageWidth * sizeof(uint32_t)) } };
 
 		pCmd->mD3D12.pDxCmdList->CopyTextureRegion(&Dst, 0, 0, 0, &Src, NULL);
 

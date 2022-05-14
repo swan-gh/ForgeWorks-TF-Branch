@@ -121,11 +121,21 @@ namespace eastl
 		using base_type::insert;
 
 	public:
+
 		/// hash_map
 		///
 		/// Default constructor.
 		///
-		explicit hash_map(const allocator_type& allocator = EASTL_HASH_MAP_DEFAULT_ALLOCATOR)
+		hash_map() : hash_map(EASTL_HASH_MAP_DEFAULT_ALLOCATOR)
+		{
+			// Empty
+		}
+
+		/// hash_map
+		///
+		/// Allocator constructor.
+		///
+		explicit hash_map(const allocator_type& allocator)
 			: base_type(0, Hash(), mod_range_hashing(), default_ranged_hash(), 
 						Predicate(), eastl::use_first<eastl::pair<const Key, T> >(), allocator)
 		{

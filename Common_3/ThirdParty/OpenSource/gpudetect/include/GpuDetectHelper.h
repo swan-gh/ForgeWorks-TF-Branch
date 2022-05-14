@@ -23,7 +23,7 @@
 */
 
 #pragma once
-static int regGetValueHelper(HKEY keyHandle, LPSTR subKeyName, LPSTR valName, char* resultStr, DWORD restultStrSize)
+static int regGetValueHelper(HKEY keyHandle, LPSTR subKeyName, LPCSTR valName, char* resultStr, DWORD restultStrSize)
 {
 	DWORD strSize = 0;
 

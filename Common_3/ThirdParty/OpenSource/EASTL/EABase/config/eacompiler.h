@@ -303,6 +303,15 @@
 		#endif
 	#endif
 
+	// EA_COMPILER_CPP20_ENABLED
+	#if !defined(EA_COMPILER_CPP20_ENABLED) && defined(__cplusplus)
+		#if (__cplusplus >= 202002L) 
+			#define EA_COMPILER_CPP20_ENABLED 1
+		#elif defined(_MSVC_LANG) && (_MSVC_LANG >= 202002L) // C++20+
+			#define EA_COMPILER_CPP20_ENABLED 1
+		#endif
+	#endif
+
 
 	#if   defined(__ARMCC_VERSION)
 		// Note that this refers to the ARM RVCT compiler (armcc or armcpp), but there
