@@ -60,7 +60,23 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 
 // Just include the cpp here so we don't have to add it to the all projects
+#if defined(FW_BUILDING_MODULE)
+#include "../../ThirdParty/ForgeWorks/MemoryManager.c"
+#else
 #include "../../ThirdParty/OpenSource/FluidStudios/MemoryManager/mmgr.c"
+
+struct MMGR
+{
+	void* dummy;
+};
+
+void SetMMGR(struct MMGR const * p_mmgr){}
+
+#endif
+
+void* tf_memalign_internal(size_t align, size_t size, const char* f, int l, const char* sf);
+void* tf_calloc_memalign_internal(size_t count, size_t align, size_t size, const char* f, int l, const char* sf);
+
 
 void* tf_malloc_internal(size_t size, const char* f, int l, const char* sf)
 {
