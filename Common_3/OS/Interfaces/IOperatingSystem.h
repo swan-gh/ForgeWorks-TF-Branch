@@ -57,6 +57,8 @@ typedef uint64_t uint64;
 #define THREAD_STACK_SIZE_ORBIS (64u * TF_KB)
 #endif
 
+//Build fix for MSVC v143
+#include <io.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
